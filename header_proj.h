@@ -83,14 +83,9 @@ typedef struct _msgbuf{
 	int price; // prezzo che il client dovr�� pagare: (a) un tanto fisso per
 		// ogni prestazione, pi�� (b) una quota in funzione dell'urgenza
 		// sia (a) sia (b) sono fissati tramite il file di configurazione
-	int receipt_fname[FILENAMELEN]; // nome del file in cui �� memorizzata la
-	 	// fattura per una data prenotazione: in linea di massima sar��
-	 	// PID_number.txt
 } request, response, reservation;
 
 // suggerimento
 // request: client->server
 // response: server->client
 // reservation: server->coda_singolo_reparto
-
-

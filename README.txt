@@ -1,0 +1,1 @@
+Attuatore per la simulzione di esecuzione del programma

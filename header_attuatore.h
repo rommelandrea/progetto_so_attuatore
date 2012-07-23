@@ -15,7 +15,7 @@ typedef struct _coda{
 	struct _coda *next;
 } coda;
 
-coda inizializza_coda();
-coda aggiungi_elem();
+typedef coda *lista;
+
 
 #endif /* HEADER_ATTUATORE_H_ */

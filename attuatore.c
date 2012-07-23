@@ -5,24 +5,33 @@
  *      Author: rommel
  */
 
-#include "header_proj.h"
+//#include "header_proj.h"
 #include "header_attuatore.h"
 #include <pthread.h>
 
-coda *coda_messaggi;
+pthread_mutex_t mutex;
+lista prenotazioni = NULL;
 
 void *thread_back(void *arg) {
+	pthread_mutex_lock(&mutex);
 	printf("sono il backend\n");
+	sleep(2);
+	pthread_mutex_unlock(&mutex);
 	return NULL ;
 }
 
 void *thread_front(void *arg) {
+	pthread_mutex_lock(&mutex);
 	printf("sono il frontend\n");
+	sleep(2);
+	pthread_mutex_unlock(&mutex);
 	return NULL ;
 }
 
-int main(void) {
+int main(int argc, char **argv) {
 	pthread_t mythread, mythread2;
+
+	pthread_mutex_init(&mutex, NULL );
 
 	if (pthread_create(&mythread, NULL, thread_front, NULL )) {
 		printf("error creating thread.");
@@ -43,8 +52,6 @@ int main(void) {
 		printf("error joining thread.");
 		abort();
 	}
-
-	//printf("\nmyglobal equals %d\n", myglobal);
 
 	exit(0);
 }
