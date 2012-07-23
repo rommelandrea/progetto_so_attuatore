@@ -54,10 +54,10 @@ void *thread_back(int arg) {
 	}
 
 	pthread_mutex_lock(&mutex);
-	//prenotazioni = inserisci(res, prenotazioni);
-
-	sleep(2);
+	prenotazioni = inserisci(res, prenotazioni);
 	pthread_mutex_unlock(&mutex);
+
+	stampa(prenotazioni);
 	return NULL ;
 }
 
