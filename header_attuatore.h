@@ -11,7 +11,7 @@
 #include "header_proj.h"
 
 typedef struct _coda{
-	reservation messaggio;
+	reservation * messaggio;
 	struct _coda *next;
 } coda;
 

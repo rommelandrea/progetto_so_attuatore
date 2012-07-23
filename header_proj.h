@@ -71,6 +71,7 @@
 //variabili per definire i codici della coda
 #define TOSRV 10
 #define TOCLI 11
+#define TORES 12
 
 //definizione della struttura
 typedef struct _msgbuf{
