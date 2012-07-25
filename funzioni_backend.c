@@ -1,14 +1,27 @@
 #include "header_attuatore.h"
 
+
+/**
+ * crea un nuovo elemento nella coda e ci inserisce il messaggio r
+ * @param r messaggio da inserire
+ * @return ritorna l'elemento creato
+ */
 coda * crea_nuovo(reservation *r) {
 	coda *c;
 	c = calloc(1, sizeof(coda));
+	c->messaggio = calloc(1, sizeof(reservation));
 	c->messaggio = r;
 	c->next = NULL;
 
 	return c;
 }
 
+/**
+ * inserisce un pessaggio r sulla coda c
+ * @param c coda sul quale fare l'inserimento
+ * @param r messaggio da inserire
+ * @return return della coda
+ */
 coda * inserisci(coda *c, reservation *r) {
 	if (c == NULL ) {
 		return crea_nuovo(r);
@@ -34,40 +47,3 @@ coda * inserisci(coda *c, reservation *r) {
 	}
 	return c;
 }
-
-/*
-coda * crea_nuovo(reservation *r) {
-	coda *new = malloc(sizeof(coda));
-
-	new->messaggio = r;
-	new->next = NULL;
-
-	return new;
-}
-
-coda * inserisci(reservation *r, coda * n) {
-	if (n == NULL || n->messaggio->turn > r->turn) {
-		coda *new = crea_nuovo(r);
-		new->next = n;
-		return new;
-	} else {
-		coda *primo = n;
-		if (n->next != NULL ) {
-			if (r->turn > n->next->messaggio->turn)
-				inserisci(r, n->next);
-			else {
-				coda *tmp = n->next;
-				n->next = crea_nuovo(r);
-				n->next->next = tmp;
-			}
-		} else {
-			if (n->next == NULL )
-				n->next = crea_nuovo(r);
-			else {
-
-			}
-		}
-		return primo;
-	}
-}
-*/

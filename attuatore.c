@@ -8,12 +8,19 @@
 #include <pthread.h>
 
 pthread_mutex_t mutex;
-lista prenotazioni = NULL;
+coda * prenotazioni = NULL;
 
+/**
+ * la funzione thread_back è il backend dell'attuatore
+ * si mette in ascolto sulla coda passata come argomento
+ * preleva i messaggi e li inserisci in ordine di turno sulla coda
+ *
+ * @param arg parametro per sapere su che coda ascoltare
+ */
 void *thread_back(int arg) {
+	int n = 0;
 	int mess;
 	reservation * res = NULL;
-	res = malloc(sizeof(reservation));
 
 	printf("\nargomento %d\n", arg);
 
@@ -44,8 +51,10 @@ void *thread_back(int arg) {
 	}
 	printf("sono il backend\n");
 
-	while (TRUE) {
+	while (n < 3) {
 		printf("in attesa di un messaggio\n");
+
+		res = calloc(1, sizeof(reservation));
 		msgrcv(mess, res, sizeof(reservation), TORES, 0);
 		printf("ricevuto messaggio\n");
 
@@ -53,9 +62,10 @@ void *thread_back(int arg) {
 		prenotazioni = inserisci(prenotazioni, res);
 		pthread_mutex_unlock(&mutex);
 
-		stampa(prenotazioni);
+		n++;
 	}
 	printf("esco dal thread backend\n");
+
 	pthread_exit(NULL );
 }
 
@@ -70,38 +80,52 @@ void *thread_front(void *arg) {
 	pthread_exit(NULL );
 }
 
+/**
+ * main dell'attuatore
+ * riceve in ingresso il numero di coda sul quale mettersi in ascolto
+ * crea due thread, uno per il frontend e l'altro sul backend che procedono in parallelo
+ *
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char **argv) {
 	if (argc < 2) {
 		perror("Miss argument");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
-	pthread_t th_front, th_back;
 	int argomento;
 
-	argomento = atoi(argv[1]);
+	if (sscanf(argv[1], "%d", &argomento) <= 0) {
+		printf("First parameter must be an integer \n");
+		exit(EXIT_FAILURE);
+	}
+
+	pthread_t THR_QUEUE;
+	pthread_t THR_INPUT;
 
 	pthread_mutex_init(&mutex, NULL );
 
-//	if (pthread_create(&th_front, NULL, thread_front, NULL )) {
-//		perror("error creating thread.");
-//		abort();
-//	}
-
-	if (pthread_create(&th_back, NULL, thread_back, (void *) argomento)) {
+	if (pthread_create(&THR_QUEUE, NULL, thread_back, argomento)) {
 		perror("error creating thread.");
-		abort();
+		exit(EXIT_FAILURE);
 	}
 
-//	if (pthread_join(th_front, NULL )) {
-//		perror("error joining thread.");
-//		abort();
-//	}
+	if (pthread_create(&THR_INPUT, NULL, thread_front, NULL )) {
+		perror("error creating thread.");
+		exit(EXIT_FAILURE);
+	}
 
-	if (pthread_join(th_back, NULL )) {
+	if (pthread_join(THR_INPUT, NULL )) {
 		perror("error joining thread.");
-		abort();
+		exit(EXIT_FAILURE);
 	}
 
-	exit(0);
+	if (pthread_join(THR_QUEUE, NULL )) {
+		perror("error joining thread.");
+		exit(EXIT_FAILURE);
+	}
+
+	exit(EXIT_SUCCESS);
 }

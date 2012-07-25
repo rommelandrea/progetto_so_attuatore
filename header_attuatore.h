@@ -17,5 +17,8 @@ typedef struct _coda{
 
 typedef coda *lista;
 
+void stampa(coda *);
+coda * inserisci(coda *, reservation *);
+
 
 #endif /* HEADER_ATTUATORE_H_ */
