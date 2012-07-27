@@ -20,7 +20,7 @@
 #include <fcntl.h>
 #include <signal.h>
 
-//
+/*
 //
 // -------- LABORATORIO DI SISTEMI OPERATIVI - A.A. 2011-2012 ---------
 //
@@ -28,54 +28,61 @@
 //
 //
 // ========= macro per la compilazione (condizionale) =========
-//
+*/
 #define DEBUG 1
-//
+/*
 // ========= macro per l'esecuzione ==========
 //
 // ----- livello di priorita' specificato dall'utente -----
+*/
 #define ILLWAIT 0
 #define NOHURRY 1
 #define IMONHOLODAY 2
 #define NEEDTOGO 3
 #define CANTWAIT 4
-//
+/*
 // ----- possibili valori del kindof_service -----
+*/
 #define OPHTHALMOLOGY 0
 #define ORTHOPEDICS 1
 #define RADIOLOGY 2
-//
+/*
 // =========== costanti di utilita' generale ============
 //
 // ----- max lunghezza del file contenente la fattura -----
+*/
 #define FILENAMELEN 32
-//
+
 #define PERMESSI (0666)
-//
+
 #define MSG_BUF_SIZE 1024
-//
+
 #define SERVER_KEY 0x1aaaaaa1
-//
+
 #define SEM_KEY 1490941
-//
+
 #define SHM_KEY 1491941
-//
+
 #define OPH_queue_KEY 1492941
 #define ORT_queue_KEY 1493941
 #define RAD_queue_KEY 1494941
-//
+
 #define INVOICE_PATH "invoices/"
 
 #define TRUE 1
 #define FALSE 0
+/*
 //variabili per definire i codici della coda
+*/
 #define TOSRV 10
 #define TOCLI 11
 #define TORES 12
 
+/*
 //definizione della struttura
+*/
 typedef struct _msgbuf{
-	long mtype; //
+	long mtype;
 	int  clientId; // utilizzato dal client, per indicare al server
 		// a chi spedire la risposta
 	short priority; // in {0,1,2,3,4} 0: ILLWAIT, ..., 4: CANTWAIT

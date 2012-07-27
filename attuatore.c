@@ -3,8 +3,10 @@
  *
  *      Author: Andrea Romanello
  */
-
+//#include "header_proj.h"
 #include "header_attuatore.h"
+#include "header_back.h"
+#include "header_front.h"
 #include <pthread.h>
 
 pthread_mutex_t mutex;
@@ -22,10 +24,12 @@ void *thread_back(int arg) {
 	int mess;
 	reservation * res = NULL;
 
+	/*
 	printf("\nargomento %d\n", arg);
+	*/
 
 	if (arg == 0) {
-		printf("caso 0\n");
+		printf("coda 0\n");
 		mess = msgget(OPH_queue_KEY, 0);
 		if (mess < 0) {
 			perror("Unable to open message queue");
@@ -33,7 +37,7 @@ void *thread_back(int arg) {
 		}
 	}
 	if (arg == 1) {
-		printf("caso 1\n");
+		printf("coda 1\n");
 		mess = msgget(ORT_queue_KEY, 0);
 		if (mess < 0) {
 			perror("Unable to open message queue");
@@ -42,14 +46,17 @@ void *thread_back(int arg) {
 	}
 
 	if (arg == 2) {
-		printf("caso 2\n");
+		printf("coda 2\n");
 		mess = msgget(RAD_queue_KEY, 0);
 		if (mess < 0) {
 			perror("Unable to open message queue");
 			exit(1);
 		}
 	}
+
+	/*
 	printf("sono il backend\n");
+	*/
 
 	while (n < 3) {
 		printf("in attesa di un messaggio\n");
@@ -71,14 +78,19 @@ void *thread_back(int arg) {
 
 void * thread_front(void *arg) {
 	int scelta;
+	int pid;
 	do{
+
 		menu();
 		scanf("%d", &scelta);
 
 		switch(scelta){
 		case 1:
+
+			printf("inserire il pid da cercare: ");
+			scanf("%d", &pid);
 			pthread_mutex_lock(&mutex);
-			find();
+			cerca_prenot(prenotazioni, pid);
 			pthread_mutex_unlock(&mutex);
 			break;
 		case 2:
@@ -94,12 +106,13 @@ void * thread_front(void *arg) {
 		case 0:
 			break;
 
-		case default:
+		default:
 			printf("scelta errata\n\n\n");
 			break;
 		}
 	}while(scelta != 0);
 
+	printf("esco dal frontend\n");
 
 /*
 	while (TRUE) {

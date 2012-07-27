@@ -5,10 +5,10 @@
  *      Author: rommel
  */
 
+#include "header_proj.h"
+
 #ifndef HEADER_ATTUATORE_H_
 #define HEADER_ATTUATORE_H_
-
-#include "header_proj.h"
 
 typedef struct _coda{
 	reservation * messaggio;
@@ -16,9 +16,5 @@ typedef struct _coda{
 } coda;
 
 typedef coda *lista;
-
-void stampa(coda *);
-coda * inserisci(coda *, reservation *);
-
 
 #endif /* HEADER_ATTUATORE_H_ */
