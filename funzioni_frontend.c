@@ -33,6 +33,14 @@ void print(lista p) {
 		printf("\n\n");
 }
 
+void print_dettaglio(lista p){
+	if (p != NULL ) {
+		stampa_prenot(p);
+		print(p->next);
+	} else
+		printf("\n\n");
+}
+
 /**
  * crea un nuovo elemento nella coda e ci inserisce il messaggio r
  * @param r messaggio da inserire
@@ -87,8 +95,6 @@ coda * insert_by_pid(coda *c, reservation *r) {
 void print_by_pid(coda * c) {
 	coda * tmp = NULL;
 	while (c) {
-		tmp = calloc(1, sizeof(coda));
-		tmp->messaggio = calloc(1, sizeof(reservation));
 		tmp = insert_by_pid(tmp, c->messaggio);
 		c = c->next;
 	}
@@ -119,7 +125,8 @@ void cerca_prenot(coda *p, int proc_id) {
  */
 void menu() {
 	printf("premere 1 per fare la ricerca\n");
-	printf("premere 2 per stamapare la lista in ordine di turno\n");
-	printf("premere 3 per stamapare la lista in ordine di pid\n");
-	printf("premere 4 per uscire\n");
+	printf("premere 2 per stampare la lista in ordine di turno\n");
+	printf("premere 3 per stampare la lista in ordine di pid\n");
+	printf("premere 4 per stampare la lista in ordine di turno dettagliata");
+	printf("premere 0 per uscire\n");
 }

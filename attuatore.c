@@ -11,6 +11,7 @@
 
 pthread_mutex_t mutex;
 coda * prenotazioni = NULL;
+int loop;
 
 /**
  * la funzione thread_back e' il backend dell'attuatore
@@ -20,7 +21,6 @@ coda * prenotazioni = NULL;
  * @param arg parametro per sapere su che coda ascoltare
  */
 void *thread_back(int arg) {
-	int n = 0;
 	int mess;
 	reservation * res = NULL;
 
@@ -58,7 +58,7 @@ void *thread_back(int arg) {
 	printf("sono il backend\n");
 	*/
 
-	while (n < 3) {
+	while (loop) {
 		printf("in attesa di un messaggio\n");
 
 		res = calloc(1, sizeof(reservation));
@@ -68,8 +68,6 @@ void *thread_back(int arg) {
 		pthread_mutex_lock(&mutex);
 		prenotazioni = inserisci(prenotazioni, res);
 		pthread_mutex_unlock(&mutex);
-
-		n++;
 	}
 	printf("esco dal thread backend\n");
 
@@ -103,7 +101,13 @@ void * thread_front(void *arg) {
 			print_by_pid(prenotazioni);
 			pthread_mutex_unlock(&mutex);
 			break;
+		case 4:
+			pthread_mutex_lock(&mutex);
+			print_dettaglio(prenotazioni);
+			pthread_mutex_unlock(&mutex);
+			break;
 		case 0:
+			loop = 0;
 			break;
 
 		default:
@@ -136,12 +140,13 @@ void * thread_front(void *arg) {
  * @return
  */
 int main(int argc, char **argv) {
+	int argomento;
+	loop = 1;
+
 	if (argc < 2) {
 		perror("Miss argument");
 		exit(EXIT_FAILURE);
 	}
-
-	int argomento;
 
 	if (sscanf(argv[1], "%d", &argomento) <= 0) {
 		printf("First parameter must be an integer \n");
@@ -172,6 +177,8 @@ int main(int argc, char **argv) {
 		perror("error joining thread.");
 		exit(EXIT_FAILURE);
 	}
+
+	printf("\n\nATTUATORE TERMINATO\n");
 
 	exit(EXIT_SUCCESS);
 }
