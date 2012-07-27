@@ -6,7 +6,7 @@
  */
 #include "header_attuatore.h"
 
-void stampa(lista p) {
+void print(lista p) {
 	if (p != NULL ) {
 		printf("client %d, turno %d\n", p->messaggio->clientId,
 				p->messaggio->turn);
@@ -77,4 +77,11 @@ void print_by_pid(coda * c){
 	}
 
 	stampa(tmp);
+}
+
+void menu(){
+	printf("premere 1 per fare la ricerca\n");
+	printf("premere 2 per stamapare la lista in ordine di turno\n");
+	printf("premere 3 per stamapare la lista in ordine di pid\n");
+	printf("premere 4 per uscire\n");
 }

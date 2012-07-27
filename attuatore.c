@@ -11,7 +11,7 @@ pthread_mutex_t mutex;
 coda * prenotazioni = NULL;
 
 /**
- * la funzione thread_back è il backend dell'attuatore
+ * la funzione thread_back e' il backend dell'attuatore
  * si mette in ascolto sulla coda passata come argomento
  * preleva i messaggi e li inserisci in ordine di turno sulla coda
  *
@@ -69,7 +69,39 @@ void *thread_back(int arg) {
 	pthread_exit(NULL );
 }
 
-void *thread_front(void *arg) {
+void * thread_front(void *arg) {
+	int scelta;
+	do{
+		menu();
+		scanf("%d", &scelta);
+
+		switch(scelta){
+		case 1:
+			pthread_mutex_lock(&mutex);
+			find();
+			pthread_mutex_unlock(&mutex);
+			break;
+		case 2:
+			pthread_mutex_lock(&mutex);
+			print(prenotazioni);
+			pthread_mutex_unlock(&mutex);
+			break;
+		case 3:
+			pthread_mutex_lock(&mutex);
+			print_by_pid(prenotazioni);
+			pthread_mutex_unlock(&mutex);
+			break;
+		case 0:
+			break;
+
+		case default:
+			printf("scelta errata\n\n\n");
+			break;
+		}
+	}while(scelta != 0);
+
+
+/*
 	while (TRUE) {
 		pthread_mutex_lock(&mutex);
 		printf("stampo le prenotazioni\n");
@@ -77,7 +109,8 @@ void *thread_front(void *arg) {
 		sleep(5);
 		pthread_mutex_unlock(&mutex);
 	}
-	pthread_exit(NULL );
+*/
+	pthread_exit(NULL);
 }
 
 /**
@@ -117,12 +150,12 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	if (pthread_join(THR_INPUT, NULL )) {
+	if (pthread_join(THR_QUEUE, NULL )) {
 		perror("error joining thread.");
 		exit(EXIT_FAILURE);
 	}
 
-	if (pthread_join(THR_QUEUE, NULL )) {
+	if (pthread_join(THR_INPUT, NULL )) {
 		perror("error joining thread.");
 		exit(EXIT_FAILURE);
 	}
