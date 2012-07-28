@@ -1,5 +1,12 @@
+/*
+ * funzioni_backend.c
+ *
+ *      Author: Andrea Romanello
+ *
+ * Questo file contiene le funzioni necessarie al backend per inserire i messaggi nella coda
+ */
+
 #include "header_attuatore.h"
-//#include "header_proj.h"
 
 
 /**

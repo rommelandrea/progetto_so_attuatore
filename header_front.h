@@ -11,7 +11,8 @@
 void menu();
 void print_by_pid(coda * );
 void cerca_prenot(coda *, int );
-void stampa_prenot(coda *);
+void print_dettaglio(coda *);
 void print(coda *);
+
 
 #endif /* HEADER_FRONT_H_ */

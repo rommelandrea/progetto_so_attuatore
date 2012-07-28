@@ -127,6 +127,7 @@ void menu() {
 	printf("premere 1 per fare la ricerca\n");
 	printf("premere 2 per stampare la lista in ordine di turno\n");
 	printf("premere 3 per stampare la lista in ordine di pid\n");
-	printf("premere 4 per stampare la lista in ordine di turno dettagliata");
+	printf("premere 4 per stampare la lista in ordine di turno dettagliata\n");
 	printf("premere 0 per uscire\n");
+	printf("selta: ");
 }

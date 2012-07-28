@@ -83,14 +83,14 @@
 */
 typedef struct _msgbuf{
 	long mtype;
-	int  clientId; // utilizzato dal client, per indicare al server
-		// a chi spedire la risposta
-	short priority; // in {0,1,2,3,4} 0: ILLWAIT, ..., 4: CANTWAIT
-	int kindof_service; // in {0,1,2} cfr. #define sopra
-	int turn; // numero progressivo con cui il client sara' servito
-	int price; // prezzo che il client dovra' pagare: (a) un tanto fisso per
+	int  clientId; /* utilizzato dal client, per indicare al server
+		// a chi spedire la risposta*/
+	short priority; /* in {0,1,2,3,4} 0: ILLWAIT, ..., 4: CANTWAIT*/
+	int kindof_service; /* in {0,1,2} cfr. #define sopra*/
+	int turn; /* numero progressivo con cui il client sara' servito*/
+	int price; /* prezzo che il client dovra' pagare: (a) un tanto fisso per
 		// ogni prestazione, piu' (b) una quota in funzione dell'urgenza
-		// sia (a) sia (b) sono fissati tramite il file di configurazione
+		// sia (a) sia (b) sono fissati tramite il file di configurazione*/
 } request, response, reservation;
 
 /* suggerimento

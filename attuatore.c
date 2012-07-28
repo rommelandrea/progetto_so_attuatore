@@ -3,7 +3,7 @@
  *
  *      Author: Andrea Romanello
  */
-//#include "header_proj.h"
+
 #include "header_attuatore.h"
 #include "header_back.h"
 #include "header_front.h"
@@ -80,6 +80,7 @@ void * thread_front(void *arg) {
 	do{
 
 		menu();
+
 		scanf("%d", &scelta);
 
 		switch(scelta){
@@ -114,19 +115,11 @@ void * thread_front(void *arg) {
 			printf("scelta errata\n\n\n");
 			break;
 		}
+
 	}while(scelta != 0);
 
 	printf("esco dal frontend\n");
 
-/*
-	while (TRUE) {
-		pthread_mutex_lock(&mutex);
-		printf("stampo le prenotazioni\n");
-		stampa(prenotazioni);
-		sleep(5);
-		pthread_mutex_unlock(&mutex);
-	}
-*/
 	pthread_exit(NULL);
 }
 
@@ -141,6 +134,9 @@ void * thread_front(void *arg) {
  */
 int main(int argc, char **argv) {
 	int argomento;
+
+	pthread_t THR_QUEUE;
+	pthread_t THR_INPUT;
 	loop = 1;
 
 	if (argc < 2) {
@@ -153,12 +149,9 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	pthread_t THR_QUEUE;
-	pthread_t THR_INPUT;
-
 	pthread_mutex_init(&mutex, NULL );
 
-	if (pthread_create(&THR_QUEUE, NULL, thread_back, argomento)) {
+	if (pthread_create(&THR_QUEUE, NULL, thread_back, (void *)argomento)) {
 		perror("error creating thread.");
 		exit(EXIT_FAILURE);
 	}
@@ -167,12 +160,12 @@ int main(int argc, char **argv) {
 		perror("error creating thread.");
 		exit(EXIT_FAILURE);
 	}
-
+/*
 	if (pthread_join(THR_QUEUE, NULL )) {
 		perror("error joining thread.");
 		exit(EXIT_FAILURE);
 	}
-
+*/
 	if (pthread_join(THR_INPUT, NULL )) {
 		perror("error joining thread.");
 		exit(EXIT_FAILURE);
