@@ -124,14 +124,6 @@ void cerca_prenot(coda *p, int proc_id) {
  * menu del forntend
  */
 void menu() {
-<<<<<<< HEAD
-	printf("premere 1 per fare la ricerca\n");
-	printf("premere 2 per stampare la lista in ordine di turno\n");
-	printf("premere 3 per stampare la lista in ordine di pid\n");
-	printf("premere 4 per stampare la lista in ordine di turno dettagliata\n");
-	printf("premere 0 per uscire\n");
-	printf("selta: ");
-=======
 	printf("\n");
 	printf("\tInserire l'operazione desiderata:\n");
 	printf("\t  [1] ricerca\n");
@@ -141,5 +133,4 @@ void menu() {
 	printf("\t  [0] uscita\n");
 	printf("\n");
 	printf("\t=> Scelta: ");
->>>>>>> Sistemate stampe
 }
