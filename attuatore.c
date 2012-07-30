@@ -32,16 +32,26 @@ void * thread_back(void * a) {
 	printf("\nargomento %d\n", arg);
 	*/
 
+<<<<<<< HEAD
 	if (*arg == 0) {
 		printf("coda 0\n");
+=======
+	if (arg == 0) {
+	//	printf("Coda 0\n");
+>>>>>>> Sistemate stampe
 		mess = msgget(OPH_queue_KEY, 0);
 		if (mess < 0) {
 			perror("Unable to open message queue");
 			exit(1);
 		}
 	}
+<<<<<<< HEAD
 	if (*arg == 1) {
 		printf("coda 1\n");
+=======
+	if (arg == 1) {
+	//	printf("coda 1\n");
+>>>>>>> Sistemate stampe
 		mess = msgget(ORT_queue_KEY, 0);
 		if (mess < 0) {
 			perror("Unable to open message queue");
@@ -49,8 +59,13 @@ void * thread_back(void * a) {
 		}
 	}
 
+<<<<<<< HEAD
 	if (*arg == 2) {
 		printf("coda 2\n");
+=======
+	if (arg == 2) {
+	//	printf("coda 2\n");
+>>>>>>> Sistemate stampe
 		mess = msgget(RAD_queue_KEY, 0);
 		if (mess < 0) {
 			perror("Unable to open message queue");
@@ -63,17 +78,17 @@ void * thread_back(void * a) {
 	*/
 
 	while (loop) {
-		printf("in attesa di un messaggio\n");
+	//	printf("in attesa di un messaggio\n");
 
 		res = calloc(1, sizeof(reservation));
 		msgrcv(mess, res, sizeof(reservation), TORES, 0);
-		printf("ricevuto messaggio\n");
+	//	printf("ricevuto messaggio\n");
 
 		pthread_mutex_lock(&mutex);
 		prenotazioni = inserisci(prenotazioni, res);
 		pthread_mutex_unlock(&mutex);
 	}
-	printf("esco dal thread backend\n");
+	printf("Esco dal thread backend\n");
 
 	pthread_exit(NULL );
 }
@@ -90,7 +105,7 @@ void * thread_front(void *arg) {
 		switch(scelta){
 		case 1:
 
-			printf("inserire il pid da cercare: ");
+			printf("\tInserire il pid da cercare: ");
 			scanf("%d", &pid);
 			pthread_mutex_lock(&mutex);
 			cerca_prenot(prenotazioni, pid);
@@ -116,15 +131,19 @@ void * thread_front(void *arg) {
 			break;
 
 		default:
-			printf("scelta errata\n\n\n");
+			printf("\tScelta errata\n\n\n");
 			break;
 		}
 
 	}while(scelta != 0);
 
-	printf("esco dal frontend\n");
+	printf("Esco dal frontend\n");
 
+<<<<<<< HEAD
 	pthread_exit((void *)NULL);
+=======
+	pthread_exit(NULL);
+>>>>>>> Sistemate stampe
 }
 
 /**
@@ -155,7 +174,11 @@ int main(int argc, char **argv) {
 
 	pthread_mutex_init(&mutex, NULL );
 
+<<<<<<< HEAD
 	if (pthread_create(&THR_QUEUE, NULL, thread_back, (void *)&argomento)) {
+=======
+	if (pthread_create(&THR_QUEUE, NULL, thread_back, (void *)argomento)) {
+>>>>>>> Sistemate stampe
 		perror("error creating thread.");
 		exit(EXIT_FAILURE);
 	}

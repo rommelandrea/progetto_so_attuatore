@@ -12,12 +12,12 @@
  */
 void stampa_prenot(coda *p) {
 	printf("\n");
-	printf("\tPrenotazione per processo: %d", p->messaggio->clientId);
-	printf("\tTipo di servizio: %d", p->messaggio->kindof_service);
-	printf("\tPriorità: %d", p->messaggio->priority);
-	printf("\tTurno: %d", p->messaggio->turn);
-	printf("\tPrezzo: %d", p->messaggio->price);
-	printf("\n");
+	printf("\tPrenotazione per processo: %d\n", p->messaggio->clientId);
+	printf("\t  Tipo di servizio: %d\n", p->messaggio->kindof_service);
+	printf("\t  Priorità: %d\n", p->messaggio->priority);
+	printf("\t  Turno: %d\n", p->messaggio->turn);
+	printf("\t  Prezzo: %d\n", p->messaggio->price);
+	printf("\t.....................................\n");
 }
 
 /**
@@ -26,7 +26,7 @@ void stampa_prenot(coda *p) {
  */
 void print(lista p) {
 	if (p != NULL ) {
-		printf("client %d, turno %d\n", p->messaggio->clientId,
+		printf("\t Client %d, turno %d\n", p->messaggio->clientId,
 				p->messaggio->turn);
 		print(p->next);
 	} else
@@ -36,7 +36,7 @@ void print(lista p) {
 void print_dettaglio(lista p){
 	if (p != NULL ) {
 		stampa_prenot(p);
-		print(p->next);
+		print_dettaglio(p->next);
 	} else
 		printf("\n\n");
 }
@@ -124,10 +124,22 @@ void cerca_prenot(coda *p, int proc_id) {
  * menu del forntend
  */
 void menu() {
+<<<<<<< HEAD
 	printf("premere 1 per fare la ricerca\n");
 	printf("premere 2 per stampare la lista in ordine di turno\n");
 	printf("premere 3 per stampare la lista in ordine di pid\n");
 	printf("premere 4 per stampare la lista in ordine di turno dettagliata\n");
 	printf("premere 0 per uscire\n");
 	printf("selta: ");
+=======
+	printf("\n");
+	printf("\tInserire l'operazione desiderata:\n");
+	printf("\t  [1] ricerca\n");
+	printf("\t  [2] stampa la lista in ordine di turno\n");
+	printf("\t  [3] stampa la lista in ordine di pid\n");
+	printf("\t  [4] stampa la lista in ordine di turno dettagliata\n");
+	printf("\t  [0] uscita\n");
+	printf("\n");
+	printf("\t=> Scelta: ");
+>>>>>>> Sistemate stampe
 }
