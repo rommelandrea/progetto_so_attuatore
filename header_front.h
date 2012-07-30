@@ -5,6 +5,14 @@
  *      Author: rommel
  */
 
+#ifndef HEADER_ATTUATORE_H_
+#include "header_attuatore.h"
+#endif
+
+#ifndef HEADER_BACK_H_
+#include "header_back.h"
+#endif
+
 #ifndef HEADER_FRONT_H_
 #define HEADER_FRONT_H_
 

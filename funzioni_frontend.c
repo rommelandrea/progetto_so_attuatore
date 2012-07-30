@@ -3,12 +3,16 @@
  *
  *  Created on: Jul 23, 2012
  *      Author: rommel
+ *
+ * In questo file sono presenti tutte le funzioni necessarie
+ * per la visualizzazione della coda di messaggi
  */
-#include "header_attuatore.h"
+
+#include "header_front.h"
 
 /**
  * stampa singola prenotazione in formato completo
- * @param p
+ * @param p elemento della lista da stampare
  */
 void stampa_prenot(coda *p) {
 	printf("\n");
@@ -22,7 +26,7 @@ void stampa_prenot(coda *p) {
 
 /**
  * stampa lista delle prenotazioni in formato breve
- * @param p
+ * @param p lista da stampare
  */
 void print(lista p) {
 	if (p != NULL ) {
@@ -33,6 +37,10 @@ void print(lista p) {
 		printf("\n\n");
 }
 
+/**
+ * stampa la lista in maniera dettagliata
+ * @param p lista da stampare
+ */
 void print_dettaglio(lista p){
 	if (p != NULL ) {
 		stampa_prenot(p);
@@ -42,57 +50,10 @@ void print_dettaglio(lista p){
 }
 
 /**
- * crea un nuovo elemento nella coda e ci inserisce il messaggio r
- * @param r messaggio da inserire
- * @return ritorna l'elemento creato
- */
-coda * crea_nuovo1(reservation *r) {
-	coda *c;
-	c = calloc(1, sizeof(coda));
-	c->messaggio = calloc(1, sizeof(reservation));
-	c->messaggio = r;
-	c->next = NULL;
-
-	return c;
-}
-
-/**
- * inserisce un pessaggio r sulla coda c
- * @param c coda sul quale fare l'inserimento
- * @param r messaggio da inserire
- * @return return della coda
- */
-coda * insert_by_pid(coda *c, reservation *r) {
-	if (c == NULL ) {
-		return crea_nuovo1(r);
-	} else {
-		if (c->next == NULL ) {
-			c->next = crea_nuovo1(r);
-		} else {
-			if (c->messaggio->clientId > r->clientId) {
-				coda *tmp = crea_nuovo1(r);
-				tmp->next = c;
-				return tmp;
-			} else {
-				if (c->next->messaggio->clientId < r->clientId)
-					insert_by_pid(c->next, r);
-				else {
-					coda *tmp;
-					tmp = c->next;
-					c->next = crea_nuovo1(r);
-					c->next->next = tmp;
-				}
-			}
-		}
-	}
-	return c;
-}
-
-/**
  * stampa una copia della coda ordinata secondo il num di pid
  * @param c coda originale
  */
-void print_by_pid(coda * c) {
+void print_by_pid(lista c) {
 	coda * tmp = NULL;
 	while (c) {
 		tmp = insert_by_pid(tmp, c->messaggio);
@@ -106,7 +67,7 @@ void print_by_pid(coda * c) {
  *Cerca la prenotazione con ID processo passato come parametro, stampa se trovata
  *altrimenti stampa prenotazione non trovata
  */
-void cerca_prenot(coda *p, int proc_id) {
+void cerca_prenot(lista p, int proc_id) {
 	if (p != NULL ) {
 		if (p->messaggio->clientId == proc_id) {
 			stampa_prenot(p);
