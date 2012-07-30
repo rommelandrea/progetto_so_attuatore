@@ -81,15 +81,19 @@ void * thread_back(void * a) {
 void * thread_front(void *arg) {
 	int scelta;
 	int pid;
+	char *str;
+
+	str = calloc(10, sizeof(char));
+
 	do{
 
 		menu();
 
-		scanf("%d", &scelta);
+		scanf("%s", str);
+		scelta = check(str);
 
 		switch(scelta){
 		case 1:
-
 			printf("inserire il pid da cercare: ");
 			scanf("%d", &pid);
 			pthread_mutex_lock(&mutex);
@@ -111,7 +115,7 @@ void * thread_front(void *arg) {
 			print_dettaglio(prenotazioni);
 			pthread_mutex_unlock(&mutex);
 			break;
-		case 0:
+		case 9:
 			loop = 0;
 			break;
 
@@ -120,7 +124,7 @@ void * thread_front(void *arg) {
 			break;
 		}
 
-	}while(scelta != 0);
+	}while(scelta != 9);
 
 	printf("esco dal frontend\n");
 

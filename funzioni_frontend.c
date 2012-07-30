@@ -91,7 +91,7 @@ void menu() {
 	printf("\t  [2] stampa la lista in ordine di turno\n");
 	printf("\t  [3] stampa la lista in ordine di pid\n");
 	printf("\t  [4] stampa la lista in ordine di turno dettagliata\n");
-	printf("\t  [0] uscita\n");
+	printf("\t  [9] uscita\n");
 	printf("\n");
 	printf("\t=> Scelta: ");
 }

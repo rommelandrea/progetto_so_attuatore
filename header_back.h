@@ -11,5 +11,6 @@
 coda * inserisci(coda *, reservation *);
 coda * insert_by_pid(coda *, reservation *);
 void free_list(coda *);
+int check(char *);
 
 #endif /* HEADER_BACK_H_ */

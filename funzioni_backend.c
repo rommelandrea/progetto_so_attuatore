@@ -102,5 +102,11 @@ void free_list(lista p) {
 	free(p);
 }
 
+int check(char * c){
+	char *endptr;
+	int i;
 
+	i = strtol(c, &endptr, 10);
+	return i;
+}
 
