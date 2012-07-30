@@ -20,15 +20,19 @@ int loop;
  *
  * @param arg parametro per sapere su che coda ascoltare
  */
-void *thread_back(int arg) {
+void * thread_back(void * a) {
 	int mess;
-	reservation * res = NULL;
+	int *arg;
+	reservation *res;
+
+	arg =(int *) a;
+	res = NULL;
 
 	/*
 	printf("\nargomento %d\n", arg);
 	*/
 
-	if (arg == 0) {
+	if (*arg == 0) {
 		printf("coda 0\n");
 		mess = msgget(OPH_queue_KEY, 0);
 		if (mess < 0) {
@@ -36,7 +40,7 @@ void *thread_back(int arg) {
 			exit(1);
 		}
 	}
-	if (arg == 1) {
+	if (*arg == 1) {
 		printf("coda 1\n");
 		mess = msgget(ORT_queue_KEY, 0);
 		if (mess < 0) {
@@ -45,7 +49,7 @@ void *thread_back(int arg) {
 		}
 	}
 
-	if (arg == 2) {
+	if (*arg == 2) {
 		printf("coda 2\n");
 		mess = msgget(RAD_queue_KEY, 0);
 		if (mess < 0) {
@@ -120,7 +124,7 @@ void * thread_front(void *arg) {
 
 	printf("esco dal frontend\n");
 
-	pthread_exit(NULL);
+	pthread_exit((void *)NULL);
 }
 
 /**
@@ -151,7 +155,7 @@ int main(int argc, char **argv) {
 
 	pthread_mutex_init(&mutex, NULL );
 
-	if (pthread_create(&THR_QUEUE, NULL, thread_back, (void *)argomento)) {
+	if (pthread_create(&THR_QUEUE, NULL, thread_back, (void *)&argomento)) {
 		perror("error creating thread.");
 		exit(EXIT_FAILURE);
 	}
