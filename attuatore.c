@@ -1,7 +1,7 @@
 /*
  * attuatore.c
  *
- *      Author: Andrea Romanello
+ *      Author: Andrea Romanello, Amir Curic
  */
 
 #include "header_attuatore.h"
@@ -94,7 +94,7 @@ void * thread_front(void *arg) {
 
 		switch(scelta){
 		case 1:
-			printf("inserire il pid da cercare: ");
+			printf("\t Inserire il pid da cercare: ");
 			scanf("%d", &pid);
 			pthread_mutex_lock(&mutex);
 			cerca_prenot(prenotazioni, pid);
@@ -120,13 +120,13 @@ void * thread_front(void *arg) {
 			break;
 
 		default:
-			printf("scelta errata\n\n\n");
+			printf("\tScelta errata\n\n\n");
 			break;
 		}
 
 	}while(scelta != 9);
 
-	printf("esco dal frontend\n");
+	printf("\tEsco dal frontend\n\n");
 
 	pthread_exit((void *)NULL);
 }
@@ -178,6 +178,8 @@ int main(int argc, char **argv) {
 		perror("error joining thread.");
 		exit(EXIT_FAILURE);
 	}
+	
+	free_list(prenotazioni);
 
 	printf("\n\nATTUATORE TERMINATO\n");
 
